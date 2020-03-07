@@ -140,10 +140,15 @@ class Screen:
         image.convert()
 
         if bg:
-            image_bg = pygame.Surface(im.size)
+            image_bg = pygame.Surface((target_w, target_h))
             image_bg.fill(bg)
-            image_bg.blit(image, (0, 0))
-            return image_bg
+
+            # insert image centered in surface
+            x_to_center = target_w/2 - im.size[0]/2
+            y_to_center = target_h/2 - im.size[1]/2
+            image_bg.blit(image, (x_to_center, y_to_center))
+
+            image = image_bg
 
         return image
 
