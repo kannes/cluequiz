@@ -124,15 +124,25 @@ class Screen:
 
         target_w = self.screen_w
         target_h = self.cell_h*6
+        target_ratio = target_w / target_h
 
         w, h = im.size
+        ratio = w / h
+
         if w > self.screen_w or h > target_h:
-            im.thumbnail((target_w, target_h))  # preserves aspect ratio
+            # image is too big
+            im.thumbnail((target_w, target_h))  # preserves aspect ratio, mutates
         elif w < target_w or h < target_h:
+            # image is too small
             # via https://stackoverflow.com/a/451580/4100094
-            hpercent = target_h / h
-            wsize = int((w*hpercent))
-            im = im.resize((wsize, target_h))
+            if ratio < target_ratio:
+                hpercent = target_h / h
+                wsize = int(w*hpercent)
+                im = im.resize((wsize, target_h))
+            else:
+                wpercent = target_w / w
+                hsize = int(h*wpercent)
+                im = im.resize((target_w, hsize))
 
         if config.debug:
             print(name, im.mode)
