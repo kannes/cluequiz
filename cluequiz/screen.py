@@ -137,7 +137,15 @@ class Screen:
         if config.debug:
             print(name, im.mode)
 
-        image = pygame.image.fromstring(im.tobytes('raw', im.mode), im.size, im.mode)
+        if im.mode in ("L", "P"):
+            if config.debug:
+                print("Image is greyscale or palettized, converting to RGBA for pygame...")
+            im_rgb = Image.new("RGBA", im.size)
+            im_rgb.paste(im)
+            image = pygame.image.fromstring(im_rgb.tobytes('raw', "RGBA"), im_rgb.size, "RGBA")
+        else:
+            image = pygame.image.fromstring(im.tobytes('raw', im.mode), im.size, im.mode)
+
         image.convert()
 
         if bg:
