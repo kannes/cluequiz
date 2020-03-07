@@ -171,6 +171,9 @@ class Screen:
         lines = []
         space_left = 0
         space_width = font.size(' ')[0]
+
+        text = str(text)
+
         for w in text.split():
             width = font.size(w)[0]
             if (space_width + width) > space_left:
