@@ -122,9 +122,10 @@ class Screen:
             print('Could not load image ', name)
             raise SystemExit(msg)
 
-        w, h = im.size
         target_w = self.screen_w
         target_h = self.cell_h*6
+
+        w, h = im.size
         if w > self.screen_w or h > target_h:
             im.thumbnail((target_w, target_h))  # preserves aspect ratio
         elif w < target_w or h < target_h:
