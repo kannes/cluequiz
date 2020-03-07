@@ -224,7 +224,13 @@ class Screen:
                         self.clues[i].append(self.render_wrapped(o['clue'], self.bigfont, TEXT_COLOR, self.screen_w))
                 else:
                     raise ValueError('Clue has neither text nor image nor sound')
-                self.questions[i].append(self.render_wrapped(str(o['question']), self.bigfont, TEXT_COLOR, self.screen_w))
+
+                if 'question-image' in o:
+                    bg = None if 'question-bg' not in o else o['question-bg']
+                    self.questions[i].append(self.load_image(join(dirname(yml), o['question-image']), bg))
+                else:
+                    self.questions[i].append(self.render_wrapped(str(o['question']), self.bigfont, TEXT_COLOR, self.screen_w))
+
             self.categories.append(self.render_wrapped(category, self.font, TEXT_COLOR, self.clue_w))
 
         if len(self.categories) != 6:
