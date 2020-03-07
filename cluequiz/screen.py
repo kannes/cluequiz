@@ -137,7 +137,7 @@ class Screen:
         if config.debug:
             print(name, im.mode)
 
-        if im.mode in ("L", "P"):
+        if im.mode in ("L", "LA", "P"):
             if config.debug:
                 print("Image is greyscale or palettized, converting to RGBA for pygame...")
             im_rgb = Image.new("RGBA", im.size)
