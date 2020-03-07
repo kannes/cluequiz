@@ -123,11 +123,15 @@ class Screen:
             raise SystemExit(msg)
 
         w, h = im.size
-        if w > self.screen_w:
-            w = self.screen_w
-        if h > self.cell_h*6:
-            h = self.cell_h * 6
-        im.thumbnail((w, h))
+        target_w = self.screen_w
+        target_h = self.cell_h*6
+        if w > self.screen_w or h > target_h:
+            im.thumbnail((target_w, target_h))  # preserves aspect ratio
+        elif w < target_w or h < target_h:
+            # via https://stackoverflow.com/a/451580/4100094
+            hpercent = target_h / h
+            wsize = int((w*hpercent))
+            im = im.resize((wsize, target_h))
 
         if config.debug:
             print(name, im.mode)
