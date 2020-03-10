@@ -138,11 +138,11 @@ class Screen:
             if ratio < target_ratio:
                 hpercent = target_h / h
                 wsize = int(w*hpercent)
-                im = im.resize((wsize, target_h))
+                im = im.resize((wsize, target_h), Image.NEAREST)
             else:
                 wpercent = target_w / w
                 hsize = int(h*wpercent)
-                im = im.resize((target_w, hsize))
+                im = im.resize((target_w, hsize), Image.NEAREST)
 
         if config.debug:
             print(name, im.mode)
