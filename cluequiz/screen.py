@@ -132,6 +132,8 @@ class Screen:
         target_h = self.cell_h*6
         target_ratio = target_w / target_h
 
+        padding = 200  # used when upscaling images
+
         w, h = im.size
         ratio = w / h
 
@@ -142,13 +144,13 @@ class Screen:
             # image is too small
             # via https://stackoverflow.com/a/451580/4100094
             if ratio < target_ratio:
-                hpercent = target_h / h
+                hpercent = (target_h-padding) / h
                 wsize = int(w*hpercent)
-                im = im.resize((wsize, target_h), Image.NEAREST)
+                im = im.resize((wsize, (target_h-padding)), Image.NEAREST)
             else:
-                wpercent = target_w / w
+                wpercent = (target_w-padding) / w
                 hsize = int(h*wpercent)
-                im = im.resize((target_w, hsize), Image.NEAREST)
+                im = im.resize(((target_w-padding), hsize), Image.NEAREST)
 
         if config.debug:
             print(name, im.mode)
