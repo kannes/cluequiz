@@ -44,6 +44,12 @@ from cluequiz.serial import Serial
 from cluequiz.style import *
 from cluequiz.config import config
 from cluequiz.prompt import TEXTINPUTREADY, TextPrompt
+import RPi.GPIO as GPIO
+pygame.mixer.init()
+
+gpio4o = 17
+
+GPIO.setup(gpio4o, GPIO.OUT)
 
 CHOOSING = 0
 DISPLAY_CLUE = 1
@@ -280,6 +286,11 @@ class Screen:
                 if x >= 0 and x < 6 and y >= 0 and y < 5 and instance.get_state_at(x, y) == None:
                     instance.set_selected(x, y)
                     self.change_state(DISPLAY_QUESTION if config.viewer else DISPLAY_CLUE)
+                    if pygame.mixer.music.get_busy():
+                        self.load_next_music()
+                    else:
+                        pygame.mixer.music.play(-1)
+
                     self.empty_serial()
             elif event.type == KEYDOWN:
                 if event.key == K_DELETE:

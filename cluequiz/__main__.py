@@ -1,3 +1,4 @@
+#! /usr/bin/python3
 # Clue quiz
 # Copyright (C) 2018-2020  Luca Schmid
 

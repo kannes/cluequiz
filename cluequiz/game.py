@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from copy import deepcopy
-from yaml import dump, load
+from oyaml import dump, load
 
 from cluequiz.helper import GameStateHistory, logger
 from cluequiz.config import config
