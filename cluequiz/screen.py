@@ -146,11 +146,11 @@ class Screen:
             if ratio < target_ratio:
                 hpercent = (target_h-padding) / h
                 wsize = int(w*hpercent)
-                im = im.resize((wsize, (target_h-padding)), Image.NEAREST)
+                im = im.resize((wsize, (target_h-padding)))
             else:
                 wpercent = (target_w-padding) / w
                 hsize = int(h*wpercent)
-                im = im.resize(((target_w-padding), hsize), Image.NEAREST)
+                im = im.resize(((target_w-padding), hsize))
 
         if config.debug:
             print(name, im.mode)
